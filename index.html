@@ -51,6 +51,7 @@
       width: 100%;
       border-radius: 12px;
       transition: transform 0.3s;
+      cursor: pointer; /* Add pointer cursor to indicate clickable */
     }
     .gallery img:hover {
       transform: scale(1.05);
@@ -62,6 +63,66 @@
       font-size: 0.9rem;
       color: #94a3b8;
     }
+
+    /* --- Lightbox Styles --- */
+    #lightbox-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8); /* Dimmed background */
+      display: none; /* Hidden by default */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Ensure it's on top */
+      cursor: pointer; /* Allow clicking background to close */
+    }
+
+    #lightbox-video-container {
+      position: relative; /* For positioning the close button */
+      background: #1e293b; /* Match theme */
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      max-width: 90vw; /* Max width relative to viewport */
+      max-height: 80vh; /* Max height relative to viewport */
+      aspect-ratio: 16 / 9; /* Maintain video aspect ratio */
+      width: 800px; /* Desired width, will be overridden by max-width if needed */
+       z-index: 1001; /* Above the overlay */
+       cursor: default; /* Prevent background close cursor */
+    }
+
+     #lightbox-video-container iframe {
+        display: block; /* Remove extra space below iframe */
+        width: 100%;
+        height: 100%;
+        border: none;
+     }
+
+    #lightbox-close {
+      position: absolute;
+      top: -15px; /* Position outside the top-right corner */
+      right: -15px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      line-height: 30px; /* Center the 'X' */
+      text-align: center;
+      cursor: pointer;
+      z-index: 1002; /* Above container */
+    }
+
+    /* Make lightbox visible when active */
+    #lightbox-overlay.active {
+        display: flex; /* Use flex to center the container */
+    }
+
   </style>
 </head>
 <body>
@@ -75,29 +136,33 @@
   <section>
     <h2>Worldbuilding</h2>
     <div class="gallery">
-      <img src="public/F_21_OD.jpeg">
-      <img src="public/F_21_OD.jpeg">
-      <img src="public/F_21_OD.jpeg">
+      <!-- IMPORTANT: Replace 'YOUR_YOUTUBE_VIDEO_ID_1' with the actual YouTube Video ID -->
+      <img src="public/F_21_OD.jpeg" data-youtube-id="https://youtu.be/kkdDo7UNe6o?si=rbUCcQfLnAzfTlDY" alt="Worldbuilding Example 1">
+      <img src="public/F_21_OD.jpeg" data-youtube-id="https://youtu.be/kkdDo7UNe6o?si=rbUCcQfLnAzfTlDY" alt="Worldbuilding Example 2">
+      <img src="public/F_21_OD.jpeg" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_3" alt="Worldbuilding Example 3">
     </div>
   </section>
 
   <section>
     <h2>Virtual Production</h2>
     <div class="gallery">
-      <img src="public/F_21_Unreal_OD.jpg">
-      <img src="public/F_21_Unreal_OD.jpg">
-      <img src="public/F_21_Unreal_OD.jpg">
+       <!-- IMPORTANT: Replace with actual YouTube Video IDs -->
+      <img src="public/F_21_Unreal_OD.jpg" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_4" alt="Virtual Production Example 1">
+      <img src="public/F_21_Unreal_OD.jpg" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_5" alt="Virtual Production Example 2">
+      <img src="public/F_21_Unreal_OD.jpg" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_6" alt="Virtual Production Example 3">
     </div>
   </section>
 
   <section>
     <h2>Generative AI</h2>
     <div class="gallery">
-      <img src="public/00001-2272297207.png">
-      <img src="public/00039-31978466.png">
-      <img src="public/00056-2929954412.png">
+      <!-- IMPORTANT: Replace with actual YouTube Video IDs -->
+      <img src="public/00001-2272297207.png" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_7" alt="Generative AI Example 1">
+      <img src="public/00039-31978466.png" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_8" alt="Generative AI Example 2">
+      <img src="public/00056-2929954412.png" data-youtube-id="YOUR_YOUTUBE_VIDEO_ID_9" alt="Generative AI Example 3">
     </div>
   </section>
+
 <section>
   <h2>Contact Me</h2>
   <p>Interested in working together or hiring me for teaching?</p>
@@ -113,9 +178,36 @@
     transition: background 0.3s ease;
   ">Email Me</a>
 </section>
+
   <footer>
-    &copy; 2025 Sahak Sahakian. All rights reserved.
+    © 2025 Sahak Sahakian. All rights reserved.
   </footer>
 
-</body>
-</html>
+  <!-- --- Lightbox HTML Structure --- -->
+  <div id="lightbox-overlay">
+    <div id="lightbox-video-container">
+      <button id="lightbox-close">×</button>
+      <!-- YouTube iframe will be inserted here by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryImages = document.querySelectorAll('.gallery img');
+      const lightboxOverlay = document.getElementById('lightbox-overlay');
+      const lightboxVideoContainer = document.getElementById('lightbox-video-container');
+      const lightboxCloseBtn = document.getElementById('lightbox-close');
+
+      galleryImages.forEach(img => {
+        // Only add listener if the image has a youtube ID
+        if (img.dataset.youtubeId) {
+          img.addEventListener('click', () => {
+            const youtubeId = img.dataset.youtubeId;
+
+            // Check if the ID is a placeholder, alert if it is
+             if (youtubeId.startsWith('YOUR_YOUTUBE_VIDEO_ID')) {
+                alert('Please replace the placeholder YouTube Video ID for this image!');
+                return; // Stop execution if it's a placeholder
+             }
+
+            // Create iframe
