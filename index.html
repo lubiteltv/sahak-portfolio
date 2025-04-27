@@ -11,41 +11,97 @@
       font-family: 'Roboto', sans-serif;
       background: #0f172a;
       color: #f8fafc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+    }
+    header {
+      background: #1e293b;
       text-align: center;
+      padding: 2rem 1rem;
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
+    header img {
+      width: 180px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      border: 4px solid #3b82f6;
     }
-    p {
+    header h1 {
+      margin: 0.5rem 0;
+      font-size: 2.5rem;
+    }
+    header p {
       font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 2rem;
+      color: #cbd5e1;
     }
-    a.button {
-      background: #3b82f6;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s ease;
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
     }
-    a.button:hover {
-      background: #2563eb;
+    h2 {
+      color: #3b82f6;
+      border-bottom: 2px solid #3b82f6;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #1e293b;
+      font-size: 0.9rem;
+      color: #94a3b8;
     }
   </style>
 </head>
 <body>
 
-  <h1>Sahak Sahakian</h1>
-  <p>Media Teacher | Worldbuilding Expert | Unreal Engine Wizard | Generative AI Explorer</p>
-  <a class="button" href="https://www.linkedin.com/in/sahak-sahakian-810ab713a" target="_blank">Connect with me</a>
+  <header>
+    <img src="/mnt/data/SahakSuperTeacher.jpg" alt="Sahak Sahakian">
+    <h1>Sahak Sahakian</h1>
+    <p>Worldbuilding Architect | Virtual Production Innovator | Generative AI Explorer</p>
+  </header>
+
+  <section>
+    <h2>Worldbuilding</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/300x200.png?text=Worldbuilding+1" alt="Worldbuilding project 1">
+      <img src="https://via.placeholder.com/300x200.png?text=Worldbuilding+2" alt="Worldbuilding project 2">
+      <img src="https://via.placeholder.com/300x200.png?text=Worldbuilding+3" alt="Worldbuilding project 3">
+    </div>
+  </section>
+
+  <section>
+    <h2>Virtual Production</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/300x200.png?text=Virtual+Production+1" alt="Virtual Production project 1">
+      <img src="https://via.placeholder.com/300x200.png?text=Virtual+Production+2" alt="Virtual Production project 2">
+      <img src="https://via.placeholder.com/300x200.png?text=Virtual+Production+3" alt="Virtual Production project 3">
+    </div>
+  </section>
+
+  <section>
+    <h2>Generative AI</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/300x200.png?text=Generative+AI+1" alt="Generative AI project 1">
+      <img src="https://via.placeholder.com/300x200.png?text=Generative+AI+2" alt="Generative AI project 2">
+      <img src="https://via.placeholder.com/300x200.png?text=Generative+AI+3" alt="Generative AI project 3">
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Sahak Sahakian. All rights reserved.
+  </footer>
 
 </body>
 </html>
