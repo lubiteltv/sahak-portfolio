@@ -4,250 +4,485 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sahak Sahakian - Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: #0f172a;
-      color: #f8fafc;
-    }
-    header {
-      background: #1e293b;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    header img {
-      width: 180px;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-      border: 4px solid #3b82f6;
-    }
-    header h1 {
-      margin: 0.5rem 0;
-      font-size: 2.5rem;
-    }
-    header p {
-      font-size: 1.2rem;
-      color: #cbd5e1;
-    }
-    section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
-      color: #3b82f6;
-      border-bottom: 2px solid #3b82f6;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      transition: transform 0.3s;
-      cursor: pointer; /* Add pointer cursor to indicate clickable */
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: #1e293b;
-      font-size: 0.9rem;
-      color: #94a3b8;
+    * {
+      box-sizing: border-box;
     }
 
-    /* --- Lightbox Styles --- */
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    header .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin-bottom: 2rem;
+      border: 6px solid #3b82f6;
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      object-fit: cover;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 25px 50px rgba(59, 130, 246, 0.4);
+    }
+
+    header h1 {
+      margin: 0.5rem 0;
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      color: #cbd5e1;
+      font-weight: 500;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    h2 {
+      color: #3b82f6;
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    .video-showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background: #1e293b;
+    }
+
+    .video-container:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
+    }
+
+    .video-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .video-container:hover .video-thumbnail {
+      transform: scale(1.05);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: rgba(59, 130, 246, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .play-button::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 20px solid white;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 4px;
+    }
+
+    .video-container:hover .play-button {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: rgba(59, 130, 246, 1);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    }
+
+    .video-title {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-top: 1rem;
+    }
+
+    .video-description {
+      text-align: center;
+      font-size: 1rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-section {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      text-align: center;
+      margin: 4rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    }
+
+    .contact-section .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-section h2 {
+      margin-bottom: 1rem;
+    }
+
+    .contact-section p {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+
+    .email-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .email-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: #0f172a;
+      font-size: 0.9rem;
+      color: #64748b;
+      border-top: 1px solid #334155;
+    }
+
+    /* Lightbox Styles */
     #lightbox-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8); /* Dimmed background */
-      display: none; /* Hidden by default */
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
       justify-content: center;
       align-items: center;
-      z-index: 1000; /* Ensure it's on top */
-      cursor: pointer; /* Allow clicking background to close */
+      z-index: 1000;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
     }
 
     #lightbox-video-container {
-      position: relative; /* For positioning the close button */
-      background: #1e293b; /* Match theme */
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-      max-width: 90vw; /* Max width relative to viewport */
-      max-height: 80vh; /* Max height relative to viewport */
-      aspect-ratio: 16 / 9; /* Maintain video aspect ratio */
-      width: 800px; /* Desired width, will be overridden by max-width if needed */
-       z-index: 1001; /* Above the overlay */
-       cursor: default; /* Prevent background close cursor */
+      position: relative;
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      max-width: 90vw;
+      max-height: 80vh;
+      aspect-ratio: 16 / 9;
+      width: 900px;
+      z-index: 1001;
+      cursor: default;
     }
 
-     #lightbox-video-container iframe {
-        display: block; /* Remove extra space below iframe */
-        width: 100%;
-        height: 100%;
-        border: none;
-     }
+    #lightbox-video-container iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
 
     #lightbox-close {
       position: absolute;
-      top: -15px; /* Position outside the top-right corner */
+      top: -15px;
       right: -15px;
-      background: #3b82f6;
+      background: #ef4444;
       color: white;
       border: none;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 1.2rem;
+      width: 40px;
+      height: 40px;
+      font-size: 1.4rem;
       font-weight: bold;
-      line-height: 30px; /* Center the 'X' */
-      text-align: center;
       cursor: pointer;
-      z-index: 1002; /* Above container */
+      z-index: 1002;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Make lightbox visible when active */
+    #lightbox-close:hover {
+      background: #dc2626;
+      transform: scale(1.1);
+    }
+
     #lightbox-overlay.active {
-        display: flex; /* Use flex to center the container */
+      display: flex;
     }
 
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 3rem 1rem;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.1rem;
+      }
+
+      header img {
+        width: 150px;
+        height: 150px;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      section {
+        padding: 3rem 0;
+      }
+
+      .contact-section {
+        padding: 3rem 2rem;
+        margin: 3rem 0;
+      }
+
+      .play-button {
+        width: 60px;
+        height: 60px;
+      }
+
+      .play-button::before {
+        border-left: 15px solid white;
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+      }
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="public/SahakSuperTeacher.jpg" alt="Sahak Sahakian">
-    <h1>Sahak Sahakian</h1>
-    <p>Educator | Worldbuilding Architect | Virtual Production Innovator | Generative AI Explorer</p>
+    <div class="content">
+      <img src="public/SahakSuperTeacher.jpg" alt="Sahak Sahakian">
+      <h1>Sahak Sahakian</h1>
+      <p>Educator | Worldbuilding Architect | Virtual Production Innovator | Generative AI Explorer</p>
+    </div>
   </header>
 
-  <section>
-    <h2>Worldbuilding</h2>
-    <div class="gallery">
-      <!-- Updated with the specified ID -->
-      <img src="public/F_21_OD.jpeg" data-youtube-id="iSvbLSDfJ20" alt="Worldbuilding Example 1">
-      <!-- Updated with the specified ID -->
-      <img src="public/F_21_OD.jpeg" data-youtube-id="C6UmIUMPk1Y" alt="Worldbuilding Example 2">
-      <!-- Updated with the specified ID -->
-      <img src="public/F_21_OD.jpeg" data-youtube-id="kkdDo7UNe6o" alt="Worldbuilding Example 3">
-    </div>
-  </section>
+  <div class="container">
+    <section>
+      <h2>Worldbuilding</h2>
+      <div class="video-showcase">
+        <div class="video-container" data-youtube-id="iSvbLSDfJ20">
+          <img src="public/F_21_OD.jpeg" alt="Worldbuilding Showcase" class="video-thumbnail">
+          <div class="play-button"></div>
+        </div>
+        <div class="video-title">Environmental Design & World Creation</div>
+        <div class="video-description">
+          Explore the intricate process of building immersive worlds from concept to completion, showcasing advanced techniques in environmental storytelling and atmospheric design.
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Virtual Production</h2>
-    <div class="gallery">
-       <!-- Updated with the specified ID -->
-      <img src="public/F_21_Unreal_OD.jpg" data-youtube-id="kkdDo7UNe6o" alt="Virtual Production Example 1">
-       <!-- Updated with the specified ID -->
-      <img src="public/F_21_Unreal_OD.jpg" data-youtube-id="kkdDo7UNe6o" alt="Virtual Production Example 2">
-       <!-- Updated with the specified ID -->
-      <img src="public/F_21_Unreal_OD.jpg" data-youtube-id="kkdDo7UNe6o" alt="Virtual Production Example 3">
-    </div>
-  </section>
+    <section>
+      <h2>Virtual Production</h2>
+      <div class="video-showcase">
+        <div class="video-container" data-youtube-id="C6UmIUMPk1Y">
+          <img src="public/F_21_Unreal_OD.jpg" alt="Virtual Production Showcase" class="video-thumbnail">
+          <div class="play-button"></div>
+        </div>
+        <div class="video-title">Real-time Rendering & Virtual Sets</div>
+        <div class="video-description">
+          Discover cutting-edge virtual production techniques using Unreal Engine, featuring real-time rendering, virtual cinematography, and innovative filmmaking workflows.
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Generative AI</h2>
-    <div class="gallery">
-      <!-- Updated with the specified ID -->
-      <img src="public/00001-2272297207.png" data-youtube-id="kkdDo7UNe6o" alt="Generative AI Example 1">
-      <!-- Updated with the specified ID -->
-      <img src="public/00039-31978466.png" data-youtube-id="kkdDo7UNe6o" alt="Generative AI Example 2">
-      <!-- Updated with the specified ID -->
-      <img src="public/00056-2929954412.png" data-youtube-id="kkdDo7UNe6o" alt="Generative AI Example 3">
-    </div>
-  </section>
+    <section>
+      <h2>Generative AI</h2>
+      <div class="video-showcase">
+        <div class="video-container" data-youtube-id="kkdDo7UNe6o">
+          <img src="public/00001-2272297207.png" alt="Generative AI Showcase" class="video-thumbnail">
+          <div class="play-button"></div>
+        </div>
+        <div class="video-title">AI-Powered Creative Workflows</div>
+        <div class="video-description">
+          Experience the future of creative content generation through AI, demonstrating innovative applications in visual arts, design automation, and creative problem-solving.
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h2>Contact Me</h2>
-  <p>Interested in working together or hiring me for teaching?</p>
-  <a href="mailto:loves2animaten@gmail.com" style="
-    display: inline-block;
-    margin-top: 1rem;
-    background: #3b82f6;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  ">Email Me</a>
-</section>
+    <div class="contact-section">
+      <div class="content">
+        <h2>Let's Create Together</h2>
+        <p>Ready to explore new frontiers in digital creativity and education?</p>
+        <a href="mailto:loves2animaten@gmail.com" class="email-button">Start a Conversation</a>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    © 2025 Sahak Sahakian. All rights reserved.
+    © 2025 Sahak Sahakian. Crafting the future of digital storytelling.
   </footer>
 
-  <!-- --- Lightbox HTML Structure --- -->
+  <!-- Lightbox HTML Structure -->
   <div id="lightbox-overlay">
     <div id="lightbox-video-container">
       <button id="lightbox-close">×</button>
-      <!-- YouTube iframe will be inserted here by JavaScript -->
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const galleryImages = document.querySelectorAll('.gallery img');
+      const videoContainers = document.querySelectorAll('.video-container');
       const lightboxOverlay = document.getElementById('lightbox-overlay');
       const lightboxVideoContainer = document.getElementById('lightbox-video-container');
       const lightboxCloseBtn = document.getElementById('lightbox-close');
 
-      galleryImages.forEach(img => {
-        // Only add listener if the image has a youtube ID
-        if (img.dataset.youtubeId) {
-          img.addEventListener('click', () => {
-            const youtubeId = img.dataset.youtubeId;
-
-            // No need for placeholder check now, assuming valid IDs are entered
-            // if (youtubeId.startsWith('YOUR_YOUTUBE_VIDEO_ID')) {
-            //    alert('Please replace the placeholder YouTube Video ID for this image!');
-            //    return; // Stop execution if it's a placeholder
-            // }
+      videoContainers.forEach(container => {
+        if (container.dataset.youtubeId) {
+          container.addEventListener('click', () => {
+            const youtubeId = container.dataset.youtubeId;
 
             // Create iframe
             const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`; // Autoplay video, remove related videos
+            iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
             iframe.setAttribute('allowfullscreen', '');
 
-            // Clear previous video (if any) and add new one
-            // Ensure the close button isn't removed
-             while (lightboxVideoContainer.firstChild && lightboxVideoContainer.firstChild !== lightboxCloseBtn) {
-                 lightboxVideoContainer.removeChild(lightboxVideoContainer.firstChild);
-             }
-            lightboxVideoContainer.insertBefore(iframe, lightboxCloseBtn); // Insert iframe before the close button
+            // Clear previous video and add new one
+            while (lightboxVideoContainer.firstChild && lightboxVideoContainer.firstChild !== lightboxCloseBtn) {
+              lightboxVideoContainer.removeChild(lightboxVideoContainer.firstChild);
+            }
+            lightboxVideoContainer.insertBefore(iframe, lightboxCloseBtn);
 
             // Show the lightbox
             lightboxOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
           });
-        } else {
-            // Optional: Log or handle images without a YouTube ID
-             console.warn('Image does not have a data-youtube-id attribute:', img);
-             img.style.cursor = 'default'; // Make non-linked images not look clickable
         }
       });
 
       // Function to close the lightbox
       function closeLightbox() {
         lightboxOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        
         // Remove the iframe to stop the video
         const iframe = lightboxVideoContainer.querySelector('iframe');
         if (iframe) {
-          // Pause the video first (helps prevent sound continuing briefly)
-          iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
           iframe.remove();
         }
       }
@@ -255,26 +490,35 @@
       // Close lightbox when clicking the close button
       lightboxCloseBtn.addEventListener('click', closeLightbox);
 
-      // Close lightbox when clicking on the overlay (background)
+      // Close lightbox when clicking on the overlay background
       lightboxOverlay.addEventListener('click', (event) => {
-          // Only close if the click is directly on the overlay, not the container/video
-          if (event.target === lightboxOverlay) {
-             closeLightbox();
-          }
+        if (event.target === lightboxOverlay) {
+          closeLightbox();
+        }
       });
 
-        // Optional: Close lightbox with the Escape key
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
-                closeLightbox();
-            }
-        });
+      // Close lightbox with the Escape key
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+          closeLightbox();
+        }
+      });
 
+      // Add smooth scrolling for better UX
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
     });
   </script>
 
 </body>
 </html>
-
-
-You can now copy and paste this entire block into your index.html file.
