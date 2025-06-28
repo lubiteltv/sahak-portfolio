@@ -239,19 +239,22 @@
       margin-bottom: 2rem;
     }
 
-    .email-button {
-      display: inline-block;
-      background: linear-gradient(135deg, #22242a, #3a3c45);
-      color: #fafbfc;
-      padding: 1.2rem 2.5rem;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 18px rgba(30, 30, 30, 0.25);
-      margin-top: 0.5rem;
-    }
+  .email-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #22242a, #3a3c45);
+    color: #fafbfc;
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(30,30,30,0.30);
+    margin-top: 0.5rem;
+    border: 3px solid #b7c0cc;    /* <-- ADDED OUTLINE */
+    outline: 3px solid #fff;       /* <-- ADDED OUTER OUTLINE */
+    outline-offset: 4px;           /* <-- SEPARATES OUTLINE FROM BUTTON */
+    }  
 
     .email-button:hover {
       transform: translateY(-2px) scale(1.05);
